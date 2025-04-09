@@ -147,7 +147,10 @@ function NewProject() {
   return (
     <div className="space-y-6 bg-white rounded-lg p-4">
       <div className="flex items-center gap-4 border-b border-gray-300 pb-4">
-        <button onClick={toggleSidebar}>
+        <button
+          onClick={toggleSidebar}
+          className="cursor-pointer border-r border-gray-300 pr-4"
+        >
           {isOpen ? (
             <TbLayoutSidebarLeftCollapse className="h-6 w-6 text-black" />
           ) : (

@@ -80,7 +80,10 @@ function Projects() {
     <div className="flex flex-col space-y-6 bg-white rounded-md p-4 min-h-[calc(100vh-50px)]">
       <div className="flex items-center justify-between gap-4 border-b border-gray-300 pb-4">
         <div className="flex items-center gap-4">
-          <button onClick={toggleSidebar}>
+          <button
+            onClick={toggleSidebar}
+            className="cursor-pointer border-r border-gray-300 pr-4"
+          >
             {isOpen ? (
               <TbLayoutSidebarLeftCollapse className="h-6 w-6 text-black" />
             ) : (
@@ -89,7 +92,7 @@ function Projects() {
           </button>
           <h1 className="text-2xl font-bold">Projects</h1>
         </div>
-        <Link to="/projects/new" className="btn bg-[#A89A76] text-white">
+        <Link to="/new-project" className="btn btn-sm bg-[#A89A76] text-white">
           New Project
         </Link>
       </div>

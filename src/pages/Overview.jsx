@@ -81,7 +81,10 @@ function Overview() {
   return (
     <div className="space-y-6 bg-white rounded-md p-4">
       <div className="flex items-center gap-4 border-b border-gray-300 pb-4">
-        <button onClick={toggleSidebar} className="">
+        <button
+          onClick={toggleSidebar}
+          className="cursor-pointer border-r border-gray-300 pr-4"
+        >
           {isOpen ? (
             <TbLayoutSidebarLeftCollapse className="h-6 w-6 text-black" />
           ) : (
@@ -118,7 +121,7 @@ function Overview() {
       </div>
 
       {/* Map */}
-      <div className="card bg-white shadow-md rounded-md">
+      <div className="card bg-white rounded-md">
         <div className="card-body">
           <h2 className="card-title">Project Locations</h2>
           <div className="h-[400px] rounded-lg overflow-hidden">

@@ -14,7 +14,9 @@ import { useSidebar } from "@/contexts/SidebarContext";
 import {
   TbLayoutSidebarLeftCollapse,
   TbLayoutSidebarLeftExpand,
+  TbArrowLeft,
 } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 function ProjectDetails() {
   const { projectId } = useParams();
@@ -111,13 +113,22 @@ function ProjectDetails() {
       {/* Header */}
       <div className="flex items-center justify-between gap-4 border-b border-gray-300 pb-4">
         <div className="flex items-center gap-4">
-          <button onClick={toggleSidebar}>
+          <button
+            onClick={toggleSidebar}
+            className="cursor-pointer border-r border-gray-300 pr-4"
+          >
             {isOpen ? (
               <TbLayoutSidebarLeftCollapse className="h-6 w-6 text-black" />
             ) : (
               <TbLayoutSidebarLeftExpand className="h-6 w-6 text-black" />
             )}
           </button>
+          <Link
+            to="/projects"
+            className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700"
+          >
+            <TbArrowLeft className="h-4 w-4" /> Back
+          </Link>
           <h1 className="text-2xl font-bold">Project Details</h1>
         </div>
         <div className="flex gap-2">

@@ -19,8 +19,12 @@ function Layout() {
 
   const navigation = [
     { name: "Home", href: "/home", icon: HomeIcon },
-    { name: "Projects", href: "/projects", icon: ClipboardDocumentListIcon },
-    { name: "New Project", href: "/projects/new", icon: MapIcon },
+    {
+      name: "Projects",
+      href: "/projects",
+      icon: ClipboardDocumentListIcon,
+    },
+    { name: "New Project", href: "/new-project", icon: MapIcon },
   ];
 
   return (
@@ -41,7 +45,7 @@ function Layout() {
           {/* Navigation */}
           <nav className="flex-1 space-y-1 px-2 py-4">
             {navigation.map((item) => {
-              const isActive = location.pathname === item.href;
+              const isActive = location.pathname.startsWith(item.href);
               return (
                 <Link
                   key={item.name}
