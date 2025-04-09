@@ -17,48 +17,22 @@ import {
   TbArrowLeft,
 } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { useProjects } from "@/contexts/ProjectContext";
 
 function ProjectDetails() {
   const { projectId } = useParams();
   const { isOpen, toggleSidebar } = useSidebar();
   const [isEditing, setIsEditing] = useState(false);
   const [showAddArtifact, setShowAddArtifact] = useState(false);
+  const {
+    getProject,
+    updateProject,
+    addArtifact,
+    updateArtifact,
+    deleteArtifact,
+  } = useProjects();
 
-  // Mock project data - replace with API call
-  const [project, setProject] = useState({
-    id: projectId,
-    name: "Site A Excavation",
-    description:
-      "Archaeological excavation of prehistoric Native American settlement",
-    location: "Arizona",
-    status: "In Progress",
-    startDate: "2024-02-15",
-    expectedEndDate: "2024-06-15",
-    siteType: "settlement",
-    latitude: 34.0489,
-    longitude: -111.0937,
-    boundaryPoints: [
-      [34.0489, -111.0937],
-      [34.05, -111.0937],
-      [34.05, -111.095],
-      [34.0489, -111.095],
-    ],
-    artifacts: [
-      {
-        id: 1,
-        name: "Ceramic Vessel",
-        type: "Pottery",
-        material: "Clay",
-        condition: "Fragmentary",
-        dimensions: "15cm x 10cm",
-        dateFound: "2024-03-01",
-        description: "Partial vessel with geometric designs",
-        location: "Grid A3",
-      },
-      // Add more artifacts...
-    ],
-  });
-
+  const [project, setProject] = useState(getProject(projectId));
   const [editedProject, setEditedProject] = useState(project);
   const [newArtifact, setNewArtifact] = useState({
     name: "",
@@ -80,21 +54,15 @@ function ProjectDetails() {
   };
 
   const handleSaveProject = () => {
+    updateProject(project.id, editedProject);
     setProject(editedProject);
     setIsEditing(false);
-    // TODO: Save to backend
   };
 
   const handleAddArtifact = (e) => {
     e.preventDefault();
-    const artifact = {
-      id: Date.now(),
-      ...newArtifact,
-    };
-    setProject((prev) => ({
-      ...prev,
-      artifacts: [...prev.artifacts, artifact],
-    }));
+    addArtifact(project.id, newArtifact);
+    setProject(getProject(project.id)); // Refresh project data
     setNewArtifact({
       name: "",
       type: "",

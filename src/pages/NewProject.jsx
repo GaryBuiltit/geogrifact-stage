@@ -19,6 +19,8 @@ import {
   TbLayoutSidebarLeftCollapse,
   TbLayoutSidebarLeftExpand,
 } from "react-icons/tb";
+import { useProjects } from "@/contexts/ProjectContext";
+import { useNavigate } from "react-router-dom";
 
 // New component to handle map position updates
 function MapController({ coords, zoom }) {
@@ -64,6 +66,8 @@ function NewProject() {
     permitNumber: "",
     teamSize: "",
   });
+  const { addProject } = useProjects();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -137,8 +141,8 @@ function NewProject() {
       longitude: position[1],
       boundaryPoints: boundaryPoints,
     };
-    console.log("Project Data:", projectData);
-    // TODO: Submit to backend
+    const newProjectId = addProject(projectData);
+    navigate(`/projects/${newProjectId}`);
   };
 
   const canProceed = position !== null;

@@ -12,46 +12,13 @@ import {
   TbLayoutSidebarLeftCollapse,
   TbLayoutSidebarLeftExpand,
 } from "react-icons/tb";
+import { useProjects } from "@/contexts/ProjectContext";
 
 function Projects() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const { isOpen, toggleSidebar } = useSidebar();
-  // Mock data - replace with real data later
-  const projects = [
-    {
-      id: 1,
-      name: "Site A Excavation",
-      location: "Arizona",
-      status: "In Progress",
-      startDate: "2024-02-15",
-      artifactsCount: 45,
-      description:
-        "Archaeological excavation of prehistoric Native American settlement.",
-      coordinates: "34.0489°N, 111.0937°W",
-    },
-    {
-      id: 2,
-      name: "Site B Survey",
-      location: "New Mexico",
-      status: "Completed",
-      startDate: "2024-01-10",
-      artifactsCount: 23,
-      description: "Survey of potential colonial-era trading post locations.",
-      coordinates: "34.5199°N, 105.8701°W",
-    },
-    {
-      id: 3,
-      name: "Canyon Ridge Analysis",
-      location: "Utah",
-      status: "Planning",
-      startDate: "2024-04-01",
-      artifactsCount: 0,
-      description:
-        "Analysis of rock art and settlement patterns in canyon system.",
-      coordinates: "37.1231°N, 113.1013°W",
-    },
-  ];
+  const { projects } = useProjects();
 
   // Filter projects based on search term and status
   const filteredProjects = projects.filter((project) => {
@@ -137,16 +104,15 @@ function Projects() {
                   {project.status}
                 </span>
               </div>
-              <p className="text-sm text-base-content/70">
+              <p className="text-sm text-base-content/70 line-clamp-2">
                 {project.description}
               </p>
-
-              <div className="space-y-2 mt-4">
+              <div className="flex flex-col gap-2 mt-4">
                 <div className="flex items-center gap-2 text-sm">
                   <MapPinIcon className="h-4 w-4" />
                   <span>{project.location}</span>
                   <span className="text-xs text-base-content/50">
-                    ({project.coordinates})
+                    ({project.latitude}, {project.longitude})
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
@@ -155,7 +121,7 @@ function Projects() {
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <ClockIcon className="h-4 w-4" />
-                  <span>{project.artifactsCount} artifacts recorded</span>
+                  <span>{project.artifacts?.length || 0} artifacts</span>
                 </div>
               </div>
 
